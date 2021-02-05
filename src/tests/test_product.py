@@ -30,9 +30,9 @@ class TestProduct:
             product = Product("name ", "description", price)
 
 
-    #def test_name_too_large(self):
-    #    with pytest.raises(ValueError):
-    #        product = Product("b"*100, "description", 10.2)
+    def test_name_too_large(self):
+        with pytest.raises(ValueError):
+            product = Product("b"*100, "description", 10.2)
 
     def test_description_too_large(self):
         with pytest.raises(ValueError):

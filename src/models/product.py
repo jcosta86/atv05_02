@@ -15,10 +15,19 @@ class Product(BaseModel):
         self.description = description
         self.price = price
 
+    @validates("price")
+    def validates_price(self, key: str, price: float) -> str:
+
+        if not isinstance(price, float):
+            raise TypeError("Price must be float.")
+        if price <= 0:
+            raise ValueError("Price must be greater than 0."   ) 
+        
+        return price
 
     @validates("name")
     def validates_name(self, key, name: str) -> str:
-        raise ValueError
+        
         if not isinstance(name, str):
             raise TypeError("Name must be str.")
         if len(name) > 50:
@@ -27,7 +36,7 @@ class Product(BaseModel):
             raise ValueError("Name must not be empty.")
 
         return name
-    
+
     @validates("description")
     def validates_description(self, key, description: str) -> str:
         if not isinstance(description, str):
@@ -38,12 +47,3 @@ class Product(BaseModel):
             raise ValueError("Description must not be empty.")
 
         return description
-
-    @validates("price")
-    def validates_name(self, key: str, price: float) -> str:
-        if not isinstance(price, float):
-            raise TypeError("Price must be float.")
-        if price <= 0:
-            raise ValueError("Price must be greater than 0."   ) 
-        
-        return price
